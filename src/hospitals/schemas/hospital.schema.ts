@@ -26,7 +26,7 @@ export class Hospital {
     address: string;
 
     @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' }] })
-    doctor: Doctor[];
+    doctors: Doctor[];
 }
 
 

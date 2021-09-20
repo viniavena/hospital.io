@@ -4,10 +4,10 @@ import { UpdateHospitalDto } from './dto/update-hospital.dto';
 import { Hospital, HospitalDocument } from './schemas/hospital.schema';
 import { Model } from 'mongoose'
 import { InjectModel } from '@nestjs/mongoose';
+import { Doctor, DoctorDocument } from 'src/doctors/schema/doctor.schema';
 
 @Injectable()
 export class HospitalsService {
-
   constructor(@InjectModel(Hospital.name) private hospitalModel: Model<HospitalDocument>) { }
 
   create(createHospitalDto: CreateHospitalDto) {

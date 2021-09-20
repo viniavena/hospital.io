@@ -5,4 +5,5 @@ export class CreateHospitalDto {
     city: string;
     state: string;
     address: string;
+    doctors: []
 }

@@ -3,6 +3,7 @@ export class CreateDoctorDto {
     email: string;
     password: string;
     speciality: string;
-    orm: string;
+    crm: string;
     onCall: boolean;
+    hospital: string;
 }

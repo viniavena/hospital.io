@@ -2,17 +2,27 @@ import { Injectable } from '@nestjs/common';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { UpdateDoctorDto } from './dto/update-doctor.dto';
 import { Doctor, DoctorDocument } from './schema/doctor.schema';
+import { Hospital, HospitalDocument } from 'src/hospitals/schemas/hospital.schema';
 import { Model } from 'mongoose'
 import { InjectModel } from '@nestjs/mongoose';
 
 @Injectable()
 export class DoctorsService {
 
-  constructor(@InjectModel(Doctor.name) private doctorModel: Model<DoctorDocument>) { }
+  constructor(
+    @InjectModel(Doctor.name) private doctorModel: Model<DoctorDocument>,
+    @InjectModel(Hospital.name) private hospitalModel: Model<HospitalDocument>
+    ) { }
 
   create(createDoctorDto: CreateDoctorDto) {
+    const hospitalId = createDoctorDto.hospital
     const doctor = new this.doctorModel(createDoctorDto);
-    return doctor.save();
+    return doctor.save().then( () => {
+      return this.hospitalModel.findByIdAndUpdate(
+        {_id: hospitalId},
+        {$push: { doctors : doctor}}, 
+        { new: true });
+    });
   }
 
   findAll() {

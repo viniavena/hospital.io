@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { HospitalsService } from './hospitals.service';
 import { CreateHospitalDto } from './dto/create-hospital.dto';
 import { UpdateHospitalDto } from './dto/update-hospital.dto';
+import { Doctor } from 'src/doctors/schema/doctor.schema';
 
 @Controller('hospitals')
 export class HospitalsController {
@@ -22,7 +23,7 @@ export class HospitalsController {
     return this.hospitalsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch(':id/update')
   update(@Param('id') id: string, @Body() updateHospitalDto: UpdateHospitalDto) {
     return this.hospitalsService.update(id, updateHospitalDto);
   }
