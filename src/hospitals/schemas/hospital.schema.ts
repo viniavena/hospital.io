@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import * as mongoose from 'mongoose';
 import { Document } from 'mongoose';
+import { Doctor } from 'src/doctors/schema/doctor.schema';
 
 export type HospitalDocument = Hospital & Document;
 
@@ -23,6 +25,8 @@ export class Hospital {
     @Prop()
     address: string;
 
+    @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Doctor' }] })
+    doctor: Doctor[];
 }
 
 
